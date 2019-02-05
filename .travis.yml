@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '10.15.1'
+
+branches:
+  only:
+  - source                # 只监测 source 分支上的 commit
+
+before_install:
+- npm install -g hexo-cli # 安装 hexo
+
+install:
+- npm install             # 安装额外的插件
+
+script:
+- hexo generate
