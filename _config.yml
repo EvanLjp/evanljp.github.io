@@ -77,4 +77,5 @@ theme: hexo-theme-3
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo:
+  repo: git@github.com:EvanLjp/evanljp.github.io.git
+  branch: master

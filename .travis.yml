@@ -1,16 +1,20 @@
 language: node_js
 node_js:
-- '10.15.1'
-
+- 10.15.1
 branches:
   only:
-  - source                # 只监测 source 分支上的 commit
-
+  - source
 before_install:
-- npm install -g hexo-cli # 安装 hexo
-
+- npm install -g hexo-cli
 install:
-- npm install             # 安装额外的插件
-
+- npm install
 script:
 - hexo generate
+after_success:
+- git config --global user.name "evanljp"
+- git config --global user.email "evanljp@outlook.com"
+- sed -i'' "/^ *repo/s~github\.com~${GH_TOKEN}@github.com~" _config.yml
+- hexo deploy
+env:
+  global:
+    secure: SF66oRnZ2xURB6Ck/DkSQqyYkwbUS1LijX8VtEz86jJev7HD5wxirUffZOHGcPiMiSXl4QCvir2PbyaqYX5ykOdhcm0vYO1T23ciOf7Ge6sKJQTHLXbDn6pZgGgLlnyLgDuJTbzb592FAmDj2SqWUVT08HLDLofKI8PTdz3gmUhuvNY17edwZKVcTE9nZyZKCiE5IMjJusNeNrGYQ1cCkgKzBaGmDRAeIdpZ3MapAxFJAKR1mZ5De/fcJC6JzxFNGvD5LOlpfB46dYSyRt4fQcLnSgBLClzdshWm8gFPwQyhDCUzAJSL6OZ2ii1ggxBukTqdrYHPn1JELNF87gM39LMZExEyTcr0AV//xRfp2cq0RRYIp9vrYVGrlV4crf8RaDq5kjLejtY5t7ews2+zf/AL3aiT4krFt9iyeGlN7tE1jAlVAWC3wJf+NxhQQEeIt0AORadsEfAMbwjkAgEPB4/V3phjSSJbScfQJAHv3QivN7ElUbC5Je301Cc9TTQjQnOXBKoPcPLdrstGmGfCmE9GytB2kkLL8dHv/xFuNlCjPO/HPglmvtr2Yun5nzWgRLClcwlkL9ZDSQK/+/IOd1fWDVCiiyNJMZfmcs5jBkm46YWytg79vIKP3aIkTIcaCTSIl9j/3irBfGOa+5FYJAUZfAqNtbodbZQk1DNsNow=
