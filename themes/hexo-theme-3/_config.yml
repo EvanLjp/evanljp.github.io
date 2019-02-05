@@ -4,12 +4,12 @@ favicon: /img/avatar.jpg
 
 #链接图标 显示顺序和下面顺序一致
 link:
-  theme: white # 链接样式，color: 彩色图标  white: 黑白图标
+  theme: color # 链接样式，color: 彩色图标  white: 黑白图标
   items:
-    rss: /atom.xml
+    rss:
     email: evanljp@outlook.com
     github: https://github.com/evanljp
-    jianshu: https://www.jianshu.com/u/ff56736de7cf
+    jianshu: https://www.jianshu.com/u/44d77d01ecd2
     facebook:
     twitter:
     linkedin:
@@ -47,9 +47,6 @@ menu:
       url: https://github.com/yelog
       type: 3  # 跳转类型 3：打开新的tab页
 
-# 文末声明
-article_txt: 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 evanljp@outlook.com
-
 bottom_text: ©2017 Evan
 # 自定义页面最下方的站点版权信息
 # 如果不填，则自定义为 ©2017 author (这个author为hexo根目录_config.yml中配置的)
@@ -57,7 +54,7 @@ bottom_text: ©2017 Evan
 reward: false
 # true 开启打赏功能
 
-searchAll: false
+searchAll: true
 # true 启用全文搜索
 # 开启此功能需要下面操作：
 # 1. 在 hexo 根目录 执行 npm install hexo-generator-search --save 安装插件
@@ -67,7 +64,6 @@ searchAll: false
 #   field: post
 
 
-copyright: true
 # Copyright info. of post | 文末版权信息
 
 word_count: true
