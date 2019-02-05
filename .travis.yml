@@ -14,7 +14,7 @@ after_success:
 - git config --global user.name "evanljp"
 - git config --global user.email "evanljp@outlook.com"
 - sed -i'' "s~git@github.com:sazzer/blog.git~https://${GH_TOKEN}:x-oauth-basic@github.com/sazzer/blog.git~" _config.yml
-- hexo deploy
+- hexo deploy --silent
 env:
   global:
     secure: HX2wQKPARIhddE2k6jKinglbci9r64wzN//eee1c8uFMDqLA3pEWGITKf2zzyCRntE2WLy+3enSprh/wwIPJRKyX807GxxOwg9eLHk/lsgPzpIJLXxkZ2yIZUXY1nYIOYmcm2lzyc51+Mx4N76jrjR/te2Nh5BUfz/1NFOfGdzlEcfcbGpKlj8Gb+gzJlq4IXGmtbowbUkIXixyKcpe8nS43+r94P8vE+GP3UbQTvskSwJ/KSyUTgtziQSggeBlNqpofDPx63eFPd0LMzggBxtvoDfzpanqvJxEsGPVNeX0wkdfzJg3z2Pug/P28ESeA8L0SNUafqLB/CXctsMwQPXF+bukkLhn+qGe7ELcshkvJY6EEUtCMh2syAi8LEQPXNHkgwX8CUNEBkr2DV3i9FF/Lj7A1VHgUKq4tprogVcTPefOE6moc6GklXtQE1vVUr2JHCE7JY7utuHX7kGqO5XdPJzSuvFcqCyLbnQrrw0aeApOpJCezGx0DHBZl3vvDkpWFrfz1TgPRQk0QkGOEs2zPs++6XMnSHrd1o/xKrZifWzTPVY5Btyd6hS8L2cm6Jf/vAaU3ejX9oHhgjppr3yl6LHQzcdyc+7nf6EeBfQY7WHWSj/RmU40B2ZMe368UHytrrrHYyEXmalf+oSNoIHwziRbypNJHFMVKVmzcE+4=
