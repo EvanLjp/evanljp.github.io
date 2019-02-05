@@ -13,7 +13,7 @@ script:
 after_success:
 - git config --global user.name "evanljp"
 - git config --global user.email "evanljp@outlook.com"
-- sed -i'' "/^ *repo/s~github\.com~${GH_TOKEN}@github.com~" _config.yml
+- sed -i'' "s~git@github.com:sazzer/blog.git~https://${GH_TOKEN}:x-oauth-basic@github.com/sazzer/blog.git~" _config.yml
 - hexo deploy
 env:
   global:
