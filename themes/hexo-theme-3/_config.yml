@@ -91,7 +91,7 @@ article_list:
 # 注意：由于颜色如果包含#，使用单引号 ' 引起来
 
 # 列表样式
-list: thread
+list: normal
 # normal : 普通样式
 # thread : 列表外圈有一个线框
 
@@ -119,8 +119,8 @@ img_resize: default
 
 highlight:
   on: true # true开启代码高亮
-  lineNum: true # true显示行号
-  theme: atom-light
+  lineNum: false # true显示行号
+  theme: atom-dark
 # 代码高亮主题,效果可以查看 https://highlightjs.org/static/demo/
 # 支持主题：
 # sublime : 参考sublime的高亮主题
