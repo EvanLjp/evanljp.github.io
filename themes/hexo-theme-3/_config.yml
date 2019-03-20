@@ -32,8 +32,8 @@ author:
 # 左下角自定义菜单
 menu:
   about:  # '关于' 按钮
-    on: false # 是否显示
-    url: /about  # 跳转链接
+    on: true # 是否显示
+    url: /  # 跳转链接
     type: 1 # 跳转类型 1：站内异步跳转 2：当前页面跳转 3：打开新的tab页
   friend: # '友链' 按钮
     on: true # 是否展示
@@ -149,9 +149,13 @@ mathjax:
 
 # 友情链接
 friends:
-  程序员DD: www.baidu.com
-  并发编程网: www.baidu.com
-  码云: www.baidu.com
+  程序员DD: http://blog.didispace.com/
+  并发编程网: http://ifeve.com/
+  美团技术团队: https://tech.meituan.com/
+  Segmentfault: https://segmentfault.com/
+
+
+
 
 ##########评论设置#############
 comment:
