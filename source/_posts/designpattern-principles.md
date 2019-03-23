@@ -1,7 +1,9 @@
 ---
 title: 设计原则
 date: 2019-03-20182:12:02
-tags:  design-pattern 
+tags:  
+    - design-pattern 
+    - 设计原则
 categories: 设计模式
 ---
 
