@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <title>工厂模式 | BLOG</title>
+  <meta name="keywords" content=" design-pattern , 创建型模式 ">
+  <meta name="description" content="工厂模式 | BLOG">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="概述 定义:抽象工厂提供一个创建一系列相关或者相互依赖对象的接口,无需指定被创建者具体类 类型:创建型  适用场景 客户端(应用层)不依赖产品实例如何被创建,实现等细节 强调一系列相关的产品对象(同一产品族) 一起使用创建对象需要大量重复代码 提供了一个产品类的库,所有产品以同样接口出现,从而使客户端不依赖与具体的实现   优点  具体的产品在应用层代码隔离,无需关系创建细节 将一系列产品族统一到">
+<meta name="keywords" content="design-pattern,创建型模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抽象工厂">
+<meta property="og:url" content="https://jiapeng.ink/2019/04/17/designpattern-abstractfactory/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="概述 定义:抽象工厂提供一个创建一系列相关或者相互依赖对象的接口,无需指定被创建者具体类 类型:创建型  适用场景 客户端(应用层)不依赖产品实例如何被创建,实现等细节 强调一系列相关的产品对象(同一产品族) 一起使用创建对象需要大量重复代码 提供了一个产品类的库,所有产品以同样接口出现,从而使客户端不依赖与具体的实现   优点  具体的产品在应用层代码隔离,无需关系创建细节 将一系列产品族统一到">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-factorymethod.png">
+<meta property="og:image" content="https://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-Iterable.png">
+<meta property="og:image" content="https://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-URLStreamHandlerFactory.png">
+<meta property="og:updated_time" content="2019-04-17T08:17:25.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="抽象工厂">
+<meta name="twitter:description" content="概述 定义:抽象工厂提供一个创建一系列相关或者相互依赖对象的接口,无需指定被创建者具体类 类型:创建型  适用场景 客户端(应用层)不依赖产品实例如何被创建,实现等细节 强调一系列相关的产品对象(同一产品族) 一起使用创建对象需要大量重复代码 提供了一个产品类的库,所有产品以同样接口出现,从而使客户端不依赖与具体的实现   优点  具体的产品在应用层代码隔离,无需关系创建细节 将一系列产品族统一到">
+<meta name="twitter:image" content="http://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-factorymethod.png">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/hl_theme/atom-dark.css">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js"></script>
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+</div>
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg">
+</a>
+<div class="author">
+    <span>Evan</span>
+</div>
+
+<div class="icon">
+    
+        
+    
+        
+        <a title="email" href="mailto:evanljp@outlook.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="github" href="https://github.com/evanljp" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="jianshu" href="https://www.jianshu.com/u/44d77d01ecd2" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-jianshu"/>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+<ul>
+    <li class="all active">全部文章</li>
+    
+    <li data-rel="设计模式"> 设计模式 </li>
+    
+    <li data-rel="其他"> 其他 </li>
+    
+    <li data-rel="vim"> vim </li>
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    </div>
+    <div><a style="border-right: 0px solid #fff; width: 49%" class="about site_url" href="/about">About</a><a style="width: 50%" class="friends">Link</a></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="6">
+<input type="hidden" id="yelog_site_word_count" value="13.9k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        FriendsLink
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://blog.didispace.com/">程序员DD</a></li>
+            
+            <li><a target="_blank" href="http://ifeve.com/">并发编程网</a></li>
+            
+            <li><a target="_blank" href="https://tech.meituan.com/">美团技术团队</a></li>
+            
+            <li><a target="_blank" href="https://segmentfault.com/">Segmentfault</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off" id="local-search-input">
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none">
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">design-pattern</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">创建型模式</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">hexo</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">设计原则</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">vim</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a class="设计模式 " href="/2019/04/17/designpattern-abstractfactory/" data-tag="design-pattern,创建型模式" data-author="">
+            <span class="post-title" title="抽象工厂">抽象工厂</span>
+            <span class="post-date" title="2019-04-17 16:17:25">2019/04/17</span>
+        </a>
+        
+        <a class="设计模式 " href="/2019/04/17/designpattern-factory/" data-tag="design-pattern,创建型模式" data-author="">
+            <span class="post-title" title="工厂模式">工厂模式</span>
+            <span class="post-date" title="2019-04-17 16:17:25">2019/04/17</span>
+        </a>
+        
+        <a class="设计模式 " href="/2019/04/17/designpattern-simplefactory/" data-tag="design-pattern,创建型模式" data-author="">
+            <span class="post-title" title="简单工厂">简单工厂</span>
+            <span class="post-date" title="2019-04-17 16:17:25">2019/04/17</span>
+        </a>
+        
+        <a class="其他 " href="/2019/02/05/others-createGitPagesByHexo/" data-tag="hexo" data-author="">
+            <span class="post-title" title="hexo+gitpages+ci 打造个人博客">hexo+gitpages+ci 打造个人博客</span>
+            <span class="post-date" title="2019-02-05 22:12:02">2019/02/05</span>
+        </a>
+        
+        <a class="设计模式 " href="/2019/04/17/designpattern-principles/" data-tag="design-pattern,设计原则" data-author="">
+            <span class="post-title" title="设计原则">设计原则</span>
+            <span class="post-date" title="2019-04-17 16:17:25">2019/04/17</span>
+        </a>
+        
+        <a class="vim " href="/2019/04/17/vim-basic/" data-tag="vim" data-author="">
+            <span class="post-title" title="VIMTUTOR">VIMTUTOR</span>
+            <span class="post-date" title="2019-04-17 16:17:25">2019/04/17</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-designpattern-factory" class="article article-type-post" itemscope="" itemprop="blogPost">
+    
+        <h1 class="article-title">工厂模式</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+            <a href="javascript:" data-rel="设计模式">设计模式</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color5">design-pattern</a>
+            
+            <a href="javascript:" class="color1">创建型模式</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title="更新时间: 2019-04-17 16:17:25">2019-04-17 16:17</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:358</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DEMO"><span class="toc-text">DEMO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UML"><span class="toc-text">UML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源码例子"><span class="toc-text">源码例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-text">参考资料</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ol>
+<li>定义:定义一个创建对象的接口,但让实现这个接口的类来决定实例化哪个类,工厂方法让类的实例化推迟到子类中进行</li>
+<li>类型:创建型 </li>
+<li>适用场景<ul>
+<li>创建对象需要大量重复代码</li>
+<li>客户端(应用层)不依赖产品实例如何被创建,实现等细节</li>
+<li>一个类通过其子类来指定创建哪个对象</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>用户只需要关心所需产品对应的工厂,无需关心创建细节</li>
+<li>加入新产品符合开闭原则,提高可扩展性</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>类的个数容易过多,增加复杂度</li>
+<li>增加了系统的抽象性和理解难度</li>
+</ul>
+</li>
+</ol>
+<h2 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h2><pre><code class="java">// 创建者
+public abstract class VideoFactory {
+
+    public abstract Video getVideo();
+
+}
+
+// 具体创建者
+public class JavaVideoFactory extends VideoFactory {
+    @Override
+    public Video getVideo() {
+        return new JavaVideo();
+    }
+}
+
+public class PythonVideoFactory extends VideoFactory {
+    @Override
+    public Video getVideo() {
+        return new PythonVideo();
+    }
+}
+
+// 产品
+public abstract class Video {
+
+    public abstract void produce();
+
+}
+
+// 具体产品
+public  class JavaVideo extends Video {
+
+    @Override
+    public void produce() {
+        System.out.println(&quot;java 课程&quot;);
+    }
+}
+
+public  class PythonVideo extends Video {
+
+    @Override
+    public void produce() {
+        System.out.println(&quot;python 课程&quot;);
+    }
+}
+
+// 调用者
+public class Test {
+    public static void main(String[] args) {
+        VideoFactory videoFactory = new JavaVideoFactory();
+        Video video = videoFactory.getVideo();
+        video.produce();
+        videoFactory = new PythonVideoFactory();
+        video = videoFactory.getVideo();
+        video.produce();
+    }
+}
+
+</code></pre>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p>工厂方法为创建统一产品等级而存在,符合开闭原则,符合里氏替换原则<br><img src="http://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-factorymethod.png" alt=""></p>
+<h2 id="源码例子"><a href="#源码例子" class="headerlink" title="源码例子"></a>源码例子</h2><ol>
+<li><p>jdk<br><strong>collection Iterator<e> iterator()</e></strong><br><img src="https://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-Iterable.png" alt=""></p>
+</li>
+<li><p>URLStreamHandlerFactory<br><img src="https://evanljp-blog.oss-cn-beijing.aliyuncs.com/2019-03-23-URLStreamHandlerFactory.png" alt=""></p>
+</li>
+<li><p>ILoggerFactory</p>
+</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>图解设计模式<br><a href="https://coding.imooc.com/class/270.html" target="_blank" rel="noopener">设计模式</a></p>
+
+      
+       <hr>
+       <span style="color: gray;">版权声明:<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。</span><br>
+    </div>
+</article>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '7966e86e30b7ec2c8c3c',
+            clientSecret: '328650d4ccb397961be20ca7d62ed7d3e92e50c8',
+            repo: 'evanljp.github.io',
+            owner: 'evanljp',
+            admin: ['evanljp'],
+            id: location.pathname,
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+    
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+
+<script src="/js/script.js"></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#design-pattern','#创建型模式','#hexo','#设计原则','#vim',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /*引用块样式*/
+    
+    .post .pjax article blockquote {
+        padding: 10px 20px;
+        background-color: white;
+        border: none;
+        border-left: 4px solid #42b983;
+        border-right: 4px solid #42b983;
+        border-radius: 10px;
+    }
+    
+
+    /*文章列表背景图*/
+    
+</style>
+
+
+
+
+
+
+</html>
